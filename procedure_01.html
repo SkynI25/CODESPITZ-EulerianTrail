@@ -184,17 +184,28 @@
       const el = tag => document.createElement(tag)
 
       const render = _ => {
+        data.forEach((row,ridx) => {
+          const tr = table.children[ridx]
+          row.forEach((block, cidx) => {
+            const td = tr.children[cidx]
+            td.style.cssText = `
+              ${block ? `background:${block.image};` : ''}
+              width:${blockSize}px;
+              height:${blockSize}px;
+              cursor:pointer;`;
+            td.style.backgroundColor = block && block.selected && 'yellow' || '';
+            td.innerText = block && block.content || '';
+          })
+        })
+      };
+
+      const build = _ => {
         table.innerHTML = '';
-        data.forEach(row => table.appendChild(row.reduce((tr, block) => {
-          tr.appendChild(el('td')).style.cssText =
-            `
-        ${block ? `background:${block.image};` : ''}
-        width:${blockSize}px;
-        height:${blockSize}px;
-        cursor:pointer`;
+        data.forEach(row => table.appendChild(row.reduce((tr) => {
+          tr.appendChild(el('td'))
           return tr;
         }, el('tr'))));
-      };
+      }
 
       return tid => {
         table = document.querySelector(tid);
@@ -203,6 +214,8 @@
           data.push(r);
           for (let j = 0; j < column; j++) r[j] = Block.GET();
         }
+
+        build();
 
         table.addEventListener('mousedown', down);
         table.addEventListener('mouseup', up);
