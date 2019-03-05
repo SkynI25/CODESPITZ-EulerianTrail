@@ -1,118 +1,14 @@
-const ItemRenderer = class {
-  get object() {
-    throw 'override';
-  }
-  find(v) {
-    throw 'override';
-  }
-  remove() {
-    return this._remove();
-  }
-  move(x, y) {
-    return this._move(x, y);
-  }
-  render(x, y, type, selected) {
-    this._render(x, y, type, selected);
-  }
-  _remove() {
-    throw 'override';
-  }
-  _move(x, y) {
-    throw 'override';
-  }
-  _render(x, y, type, selected) {
-    throw 'override';
-  }
-};
-
-const Renderer = class extends ThrowSet {
-  constructor(itemFactory) {
-    super();
-    prop(this, {
-      _itemFactory: itemFactory,
-      msg2item: new WeakMap,
-      item2msg: new WeakMap
-    });
-  }
-  setGame(_game, _row, _col) {
-    prop(this, {
-      _game,
-      _row,
-      _col
-    });
-  }
-  activate() {
-    throw 'override!';
-  }
-  deactivate() {
-    throw 'override!';
-  }
-
-  add(msg) {
-    const {
-      msg2item,
-      item2msg,
-      _itemFactory
-    } = this;
-    const item = _itemFactory(this, this.bw, this.bh, this.img);
-    super.add(item);
-    msg2item.set(msg, item);
-    item2msg.set(item, msg);
-    this._add(item);
-  }
-  _add(v) {
-    throw 'override'
-  }
-
-  itemStart(item) {
-    this._gameRequest(this._game.selectStart, item);
-  }
-  itemNext(item) {
-    this._gameRequest(this._game.selectNext, item);
-  }
-  itemEnd() {
-    this._gameRequest(this._game.selectEnd);
-  }
-  _gameRequest(f, item) {
-    const {
-      _game: game,
-      item2msg
-    } = this;
-    if (item) f.call(game, item2msg.get(item));
-    else f.call(game);
-  }
-
-  _renderLoop() {
-    const {
-      _game: game,
-      item2msg
-    } = this;
-    this.forEach(item => {
-      const {
-        x,
-        y,
-        type,
-        selected
-      } = game.getInfo(item2msg.get(v)).info();
-      item.render(x, y, type, selected);
-    });
-    this._render();
-  }
-  _render() {
-    throw 'override'
-  }
-}
-
 const DivRenderer = class extends ItemRenderer {
-  constructor(_parent, bw, bh, img) {
-    prop(this, {
+  constructor(_parent, bw, bh, img, div) {
+    super();
+    UTIL.prop(this, {
       _parent,
       img,
       bw,
       bh,
       div
     });
-    const div = el('div');
+    const div = UTIL.el('div');
     div.className = 'block';
     div.style.cssText = `width:${bw}px;height:${bh}px;backgroundImage:url(${img})`;
   }
@@ -174,11 +70,11 @@ const SectionRenderer = class extends Renderer {
     itemFactory
   }) {
     super(itemFactory);
-    stage = el(stage);
+    stage = UTIL.el(stage);
     const bw = parseInt(w / c),
       bh = parseInt(h / r),
       _q = [];
-    prop(this, {
+    UTIL.prop(this, {
       stage,
       bw,
       bh,
