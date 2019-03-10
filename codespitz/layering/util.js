@@ -1,5 +1,8 @@
 const UTIL = {
-  el: v => document.querySelector(v),
+  el: v => { 
+    if(document.querySelector(v) == null) return document.createElement(v)
+    return document.querySelector(v)
+  },
   prop: (...arg) => Object.assign(...arg),
   ThrowSet: class extends Set {
     constructor() {

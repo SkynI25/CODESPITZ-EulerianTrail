@@ -5,6 +5,7 @@
     overflow: hidden;
     border: 1px solid #ddd;
   }
+
   .block {
     position: absolute;
     cursor: pointer;
@@ -25,8 +26,8 @@
     itemType: "01234".split(""),
     renderer: new SectionRenderer({
       stage: "#stage",
-      bg: "../img/bg01.gif",
-      img: "../img/tower.png",
+      bg: "./img/bg01.png",
+      img: `./img/block${parseInt(Math.random()*5)}.png`,
       w: 400,
       h: 160,
       r: 2,

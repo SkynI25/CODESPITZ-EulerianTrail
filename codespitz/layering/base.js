@@ -87,7 +87,7 @@ const Game = class {
     for (let c = 0; c < column; c++) {
       for (let r = 0; r < row; r++) this._add(c, r);
     }
-    Promise.all(items.map(item => {
+    Promise.all(Array.from(items).map(item => {
       item.pos(item.x, item.y + row);
       return renderer.move(item2msg.get(item).pos(item.x, item.y));
     })).then(_ => renderer.activate())
@@ -322,7 +322,7 @@ const Renderer = class extends UTIL.ThrowSet {
         y,
         type,
         selected
-      } = game.getInfo(item2msg.get(v)).info();
+      } = game.getInfo(item2msg.get(item)).info();
       item.render(x, y, type, selected);
     });
     this._render();
