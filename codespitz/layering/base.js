@@ -70,6 +70,7 @@ const GameMsg = class {
 
 const Game = class {
   constructor(setting) {
+    debugger
     UTIL.prop(this, setting, {
       items: new WeakSet,
       msg2item: new WeakMap,
@@ -287,7 +288,7 @@ const Renderer = class extends UTIL.ThrowSet {
     super.add(item);
     msg2item.set(msg, item);
     item2msg.set(item, msg);
-    this._add(item);
+    this._add(item); // Renderer에 item이 제대로 add가 되는지 확인 필요 (현재 html에 div하나밖에 안찍힘)
   }
   _add(v) {
     throw 'override'

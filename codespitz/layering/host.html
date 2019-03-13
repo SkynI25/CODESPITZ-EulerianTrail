@@ -27,12 +27,13 @@
     renderer: new SectionRenderer({
       stage: "#stage",
       bg: "./img/bg01.png",
-      img: `./img/block${parseInt(Math.random()*5)}.png`,
+      img: `./img/block${parseInt(Math.random() * 5)}.png`,
       w: 400,
       h: 160,
       r: 2,
       c: 5,
-      itemFactory: (parent, bw, bh, img, div) => new DivRenderer(parent, bw, bh, img, div)
+      itemFactory: (parent, bw, bh, img, div) =>
+        new DivRenderer(parent, bw, bh, img, div)
     })
   })
 </script>
