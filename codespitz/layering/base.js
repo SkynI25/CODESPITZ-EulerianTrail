@@ -284,7 +284,7 @@ const Renderer = class extends UTIL.ThrowSet {
       item2msg,
       _itemFactory
     } = this;
-    const item = _itemFactory(this, this.bw, this.bh, this.img, this.div);
+    const item = _itemFactory(this, this.bw, this.bh, this.img);
     super.add(item);
     msg2item.set(msg, item);
     item2msg.set(item, msg);

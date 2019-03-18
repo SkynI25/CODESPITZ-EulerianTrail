@@ -9,8 +9,7 @@ const DivRenderer = class extends ItemRenderer {
       bh,
       div
     })
-    div.className = "block"
-    div.style.cssText = `width:${bw}px;height:${bh}px;backgroundImage:url(${img})`
+    
   }
   get object() {
     return this.div
@@ -38,6 +37,8 @@ const DivRenderer = class extends ItemRenderer {
   }
   _render(x, y, type, selected) {
     const { div, bw, bh, img } = this
+    div.className = "block"
+    div.style.cssText = `width:${bw}px;height:${bh}px;backgroundImage:url(${img})`
     div.style.left = bw * x + "px"
     div.style.top = bh * y + "px"
     div.style.backgroundPosition = -(bw * type) + "px"
