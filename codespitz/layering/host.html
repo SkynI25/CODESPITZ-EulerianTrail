@@ -1,0 +1,39 @@
+<style>
+  #stage {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+
+  .block {
+    position: absolute;
+    cursor: pointer;
+    overflow: hidden;
+  }
+</style>
+<section style="text-align:center">
+  <h1 style="color:#208AFB">BSIDE TOWER</h1>
+  <section id="stage"></section>
+</section>
+<script src="util.js"></script>
+<script src="base.js"></script>
+<script src="concrete.js"></script>
+<script>
+  const game = new Game({
+    column: 6,
+    row: 6,
+    itemType: "01234".split(""),
+    renderer: new SectionRenderer({
+      stage: "#stage",
+      bg: "./img/bg01.png",
+      img: `./img/block${parseInt(Math.random() * 5)}.png`,
+      w: 400,
+      h: 160,
+      r: 2,
+      c: 5,
+      itemFactory: (parent, bw, bh, img) =>
+        new DivRenderer(parent, bw, bh, img)
+    })
+  })
+</script>
